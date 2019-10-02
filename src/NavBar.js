@@ -4,17 +4,17 @@ import { NavLink } from "react-router-dom";
 class NavBar extends Component {
   render() {
     return (
-      <ul class="nav">
-        <li class="nav-item">
+      <ul className="nav">
+        <li className="nav-item">
           <h1>Microblog</h1>
         </li>
-        <li class="nav-item">
-          <NavLink class="nav-link" href="#">
+        <li className="nav-item">
+          <NavLink className="nav-link" exact to="/">
             Blog
           </NavLink>
         </li>
-        <li class="nav-item">
-          <NavLink class="nav-link" href="#">
+        <li className="nav-item">
+          <NavLink className="nav-link" exact to="/new">
             Add New post
           </NavLink>
         </li>
