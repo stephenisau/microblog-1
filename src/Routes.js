@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Home from "./Home";
 import NewPostForm from "./NewPostForm";
-import Post from "./Post";
+import PostDetail from "./PostDetail";
 import { Switch, Route } from "react-router-dom";
 import PostList from "./PostList";
 import ErrorNotFound from "./ErrorNotFound";
@@ -16,6 +16,8 @@ class Routes extends Component {
       ]
     };
     this.addPost = this.addPost.bind(this);
+    this.deletePost = this.deletePost.bind(this);
+    this.editPost = this.editPost.bind(this);
   }
 
   addPost(postToBeAdded) {
@@ -24,8 +26,25 @@ class Routes extends Component {
     }));
   }
 
+  deletePost(id) {
+    this.setState(st => ({
+      posts: st.posts.filter(post => post.id !== id)
+    }));
+  }
+
+  editPost(postData) {
+    // map through our posts and edit data if id's match
+    let editedPosts = this.state.posts.map(post => {
+      if (+post.id === +postData.id) {
+        debugger;
+        return { ...post, title: postData.title, description: postData.description, body: postData.body };
+      }
+      return post
+    });
+    this.setState({ posts: editedPosts });
+  }
+
   render() {
-    console.log("FROM ROUTEEEEEESSS", this.state);
     return (
       <div>
         <Switch>
@@ -44,16 +63,20 @@ class Routes extends Component {
             path="/posts/:id"
             render={rtProps => {
               const post = this.state.posts.find(
-                post => post.id === +rtProps.match.params.id
+                post => post.id.toString() === rtProps.match.params.id
               );
-              return <Post {...rtProps} post={post} />;
+              return <PostDetail {...rtProps} post={post} deletePost={this.deletePost} editPost={this.editPost}/>;
             }}
           />
           <Route
             exact
             path="/new"
             render={rtProps => (
-              <NewPostForm addPost={this.addPost} {...rtProps} />
+              <NewPostForm
+                edit={false}
+                addPost={this.addPost}
+                editPost={this.editPost}
+                {...rtProps} />
             )}
           />
           <Route path="*" component={ErrorNotFound} />

@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import uuid from "uuid/v4";
+import { withRouter } from 'react-router';
 
 class NewPostForm extends Component {
   constructor(props) {
     super(props);
+
+    const { title, description, body } = props.post;
     this.state = {
-      title: "",
-      description: "",
-      body: ""
+      title: title || "",
+      description: description || "",
+      body: body || "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,17 +25,33 @@ class NewPostForm extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    console.log("INSIDE HANDLE SUBMIT");
-    this.props.addPost({ ...this.state, id: uuid() });
-    this.setState({
-      title: "",
-      description: "",
-      body: ""
-    });
+    if (this.props.edit) {
+      let { title, description, body } = this.state
+      const id = this.props.post.id;
+      let updatedPost = { title, description, body, id }
+      this.props.editPost(updatedPost);
+    } else {
+      this.props.addPost({ ...this.state, id: uuid() });
+      this.setState({
+        title: "",
+        description: "",
+        body: ""
+      });
+    }
     this.props.history.push("/");
   }
 
   render() {
+
+    const button = this.props.edit ?
+      <button type="submit" className="btn btn-warning">
+        Update
+      </button>
+      :
+      <button type="submit" className="btn btn-primary">
+        Submit
+      </button>
+
     return (
       <div className="container">
         <h3>ADD NEW POST: </h3>
@@ -73,9 +92,7 @@ class NewPostForm extends Component {
               value={this.state.body}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
+          {button}
           <button type="submit" className="btn btn-danger">
             <Link to="/" style={{ color: "white", textDecoration: "none" }}>
               Cancel
@@ -87,4 +104,4 @@ class NewPostForm extends Component {
   }
 }
 
-export default NewPostForm;
+export default withRouter(NewPostForm);

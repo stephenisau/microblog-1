@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import Post from "./Post";
+import PostCard from "./PostCard";
 
 class PostList extends Component {
   render() {
-    const posts = this.props.posts;
-    const arrayofPost = posts.map(post => <Post key={post.id} post={post} />);
-    return <div>{arrayofPost}</div>;
+    const { posts } = this.props;
+    const arrayofPost = posts.map(post => <PostCard key={post.id} post={post} />);
+    return (
+      <div className="container-fluid">
+          {arrayofPost}
+      </div>
+    );
   }
 }
 
