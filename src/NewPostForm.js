@@ -6,12 +6,10 @@ import { withRouter } from 'react-router';
 class NewPostForm extends Component {
   constructor(props) {
     super(props);
-
-    const { title, description, body } = props.post;
     this.state = {
-      title: title || "",
-      description: description || "",
-      body: body || "",
+      title:  props.post.title || "",
+      description: props.post.description || "",
+      body:  props.post.body || "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -66,6 +64,7 @@ class NewPostForm extends Component {
               placeholder="Title"
               onChange={this.handleChange}
               value={this.state.title}
+              required
             />
           </div>
           <div className="form-group">
@@ -78,6 +77,7 @@ class NewPostForm extends Component {
               placeholder="Description"
               onChange={this.handleChange}
               value={this.state.description}
+              required
             />
           </div>
           <div className="form-group">
@@ -90,6 +90,7 @@ class NewPostForm extends Component {
               placeholder="Body"
               onChange={this.handleChange}
               value={this.state.body}
+              required
             />
           </div>
           {button}

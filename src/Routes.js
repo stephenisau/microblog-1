@@ -35,7 +35,7 @@ class Routes extends Component {
   editPost(postData) {
     // map through our posts and edit data if id's match
     let editedPosts = this.state.posts.map(post => {
-      if (+post.id === +postData.id) {
+      if (post.id.toString() === postData.id.toString()) {
         debugger;
         return { ...post, title: postData.title, description: postData.description, body: postData.body };
       }
@@ -73,6 +73,7 @@ class Routes extends Component {
             path="/new"
             render={rtProps => (
               <NewPostForm
+                post={{}}
                 edit={false}
                 addPost={this.addPost}
                 editPost={this.editPost}
