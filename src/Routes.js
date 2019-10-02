@@ -42,7 +42,12 @@ class Routes extends Component {
           <Route
             exact
             path="/posts/:id"
-            render={rtProps => <Post {...rtProps} />}
+            render={rtProps => {
+              const post = this.state.posts.find(
+                post => post.id === +rtProps.match.params.id
+              );
+              return <Post {...rtProps} post={post} />;
+            }}
           />
           <Route
             exact
