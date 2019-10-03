@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 class CommentList extends Component {
 
   render() {
-    const { posts, postId } = this.props;
-    const postComments = posts.map(post => {
-      return post.comments.map(comment => {
+    const { post, postId } = this.props;
+    const postComments = post.map(p => {
+      return p.comments.map(comment => {
         return (<div>
           <li>{comment.text}</li>
           <button>Edit</button>
@@ -22,6 +22,7 @@ class CommentList extends Component {
     return (
       <div>
         <ol>
+          {/* this.props.postComments */}
           {postComments}
         </ol>
       </div >

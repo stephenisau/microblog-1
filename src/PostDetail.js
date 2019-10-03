@@ -50,6 +50,7 @@ class PostDetail extends Component {
         </div>
         <hr/>
         <CommentList 
+          post={post}
           postId={post.id}/>
         <CommentForm 
           postId={post.id}/>
