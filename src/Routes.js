@@ -5,39 +5,48 @@ import PostDetail from "./PostDetail";
 import { Switch, Route } from "react-router-dom";
 import PostList from "./PostList";
 import ErrorNotFound from "./ErrorNotFound";
+import { connect } from 'react-redux';
+import { ADD_COMMENT, REMOVE_COMMENT, ADD_POST, REMOVE_POST } from "./actionTypes";
 
 class Routes extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      posts: [
-        { id: 1, title: "test", description: "what am i", body: "i dont know" },
-        { id: 2, title: "test2", description: "doggggg", body: "are cuteeeee" }
-      ]
-    };
+    // this.state = {
+    //   posts: [
+    //     { id: 1, title: "test", description: "what am i", body: "i dont know", comments: [{ id: 1, text: "helloooo" }] },
+    //     { id: 2, title: "test2", description: "doggggg", body: "are cuteeeee", comments: [{ id: 2, text: "gooodbyeeee" }] }
+    //   ]
+    // };
     this.addPost = this.addPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
     this.editPost = this.editPost.bind(this);
   }
 
   addPost(postToBeAdded) {
-    this.setState(state => ({
-      posts: [...state.posts, postToBeAdded]
-    }));
+    this.props.dispatch({
+      type: ADD_POST,
+      payload: postToBeAdded
+    });
+    // this.setState(state => ({
+    //   posts: [...state.posts, postToBeAdded]
+    // }));
   }
 
   deletePost(id) {
-    this.setState(st => ({
-      posts: st.posts.filter(post => post.id !== id)
-    }));
+    this.props.dispatch({
+      type: REMOVE_POST,
+      payload: id
+    });
+    // this.setState(st => ({
+    //   posts: st.posts.filter(post => post.id !== id)
+    // }));
   }
 
   editPost(postData) {
     // map through our posts and edit data if id's match
     let editedPosts = this.state.posts.map(post => {
       if (post.id.toString() === postData.id.toString()) {
-        debugger;
-        return { ...post, title: postData.title, description: postData.description, body: postData.body };
+        return { ...post, title: postData.title, description: postData.description, body: postData.body, comments: [] };
       }
       return post
     });
@@ -51,21 +60,21 @@ class Routes extends Component {
           <Route
             exact
             path="/"
-            render={() => <Home posts={this.state.posts} />}
+            render={() => <Home posts={this.props.posts} />}
           />
           <Route
             exact
             path="/posts"
-            render={() => <PostList posts={this.state.posts} />}
+            render={() => <PostList posts={this.props.posts} />}
           />
           <Route
             exact
             path="/posts/:id"
             render={rtProps => {
-              const post = this.state.posts.find(
+              const post = this.props.posts.find(
                 post => post.id.toString() === rtProps.match.params.id
               );
-              return <PostDetail {...rtProps} post={post} deletePost={this.deletePost} editPost={this.editPost}/>;
+              return <PostDetail {...rtProps} post={post} deletePost={this.deletePost} editPost={this.editPost} />;
             }}
           />
           <Route
@@ -87,4 +96,11 @@ class Routes extends Component {
   }
 }
 
-export default Routes;
+function mapStateToProps(state) {
+  return {
+    posts: state.posts,
+    comment: state.comments
+  }
+}
+
+export default connect(mapStateToProps)(Routes);

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PostCard from "./PostCard";
 import "./PostList.css";
+import { connect } from 'react-redux';
 
 class PostList extends Component {
   render() {
@@ -16,4 +17,10 @@ class PostList extends Component {
   }
 }
 
-export default PostList;
+function mapStateToProps(state) {
+  return {
+    posts: state.posts
+  }
+}
+
+export default connect(mapStateToProps)(PostList);

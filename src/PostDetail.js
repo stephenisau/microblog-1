@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
 import "./PostDetail.css";
 import NewPostForm from './NewPostForm';
+import CommentList from './CommentList';
+import CommentForm from './CommentForm';
 
 class PostDetail extends Component {
 
@@ -36,17 +37,22 @@ class PostDetail extends Component {
         <h5>{post.description}</h5>
         <p>{post.body}</p>
         <div className="post-buttons">
-          <Link 
+          <button 
             onClick={this.handleEdit}
             className="edit-button">
             <i className="fas fa-edit"></i>
-          </Link>
-          <Link
+          </button>
+          <button
             className="delete-button"
             onClick={this.handleDelete}>
             <i className="far fa-trash-alt"></i>
-          </Link>
+          </button>
         </div>
+        <hr/>
+        <CommentList 
+          postId={post.id}/>
+        <CommentForm 
+          postId={post.id}/>
       </div >
 
     return (
