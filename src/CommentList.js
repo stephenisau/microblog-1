@@ -1,31 +1,24 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 class CommentList extends Component {
-
   render() {
-    const { post, postId } = this.props;
-    const postComments = post.map(p => {
-      return p.comments.map(comment => {
-        return (<div>
+    const { post } = this.props;
+    const postComments = post.comments.map(comment => {
+      return (
+        <div key={comment.id}>
           <li>{comment.text}</li>
-          <button>Edit</button>
-          <button>Delete</button>
-        </div>)
-      // }
-      
+          <button style={{ color: "red" }}>
+            <b>X</b>
+          </button>
+        </div>
+      );
     });
-    // if (comment.postId.toString() === postId.toString()) {
-    });
-    debugger;
 
     return (
       <div>
-        <ol>
-          {/* this.props.postComments */}
-          {postComments}
-        </ol>
-      </div >
+        <ul style={{ listStyle: "none" }}>{postComments}</ul>
+      </div>
     );
   }
 }
@@ -33,7 +26,7 @@ class CommentList extends Component {
 function mapStateToProps(state) {
   return {
     posts: state.posts
-  }
+  };
 }
 
 export default connect(mapStateToProps)(CommentList);

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import uuid from "uuid/v4";
-import { withRouter } from 'react-router';
+import { withRouter } from "react-router";
 
 class NewPostForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title:  props.post.title || "",
+      title: props.post.title || "",
       description: props.post.description || "",
-      body:  props.post.body || "",
+      body: props.post.body || ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,9 +24,9 @@ class NewPostForm extends Component {
   handleSubmit(evt) {
     evt.preventDefault();
     if (this.props.edit) {
-      let { title, description, body } = this.state
+      let { title, description, body } = this.state;
       const id = this.props.post.id;
-      let updatedPost = { title, description, body, id }
+      let updatedPost = { title, description, body, id };
       this.props.editPost(updatedPost);
     } else {
       this.props.addPost({ ...this.state, id: uuid() });
@@ -40,15 +40,15 @@ class NewPostForm extends Component {
   }
 
   render() {
-
-    const button = this.props.edit ?
+    const button = this.props.edit ? (
       <button type="submit" className="btn btn-warning">
         Update
       </button>
-      :
+    ) : (
       <button type="submit" className="btn btn-primary">
         Submit
       </button>
+    );
 
     return (
       <div className="container">

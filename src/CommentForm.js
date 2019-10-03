@@ -1,16 +1,13 @@
 import React, { Component } from "react";
-import { addComment, removeComment } from './actionCreators';
-import { connect } from 'react-redux';
-import uuid from 'uuid/v4';
-import CommentList from './CommentList';
+import { addComment, removeComment } from "./actionCreators";
+import { connect } from "react-redux";
 
 class CommentForm extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       text: ""
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -23,7 +20,7 @@ class CommentForm extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    this.props.addComment({ ...this.state, id: uuid(), postId: this.props.postId.toString() })
+    this.props.addComment({ ...this.state, postId: this.props.postId, id: 3 });
     this.setState({
       text: ""
     });
@@ -48,18 +45,9 @@ class CommentForm extends Component {
   }
 }
 
-
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addComment: () => dispatch(addComment()),
-    removeComment: () => dispatch(removeComment())
-  }
-}
-
 const connected = connect(
   null,
-  mapDispatchToProps
-)
+  { addComment, removeComment }
+);
 
 export default connected(CommentForm);

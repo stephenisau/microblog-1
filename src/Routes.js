@@ -5,8 +5,8 @@ import PostDetail from "./PostDetail";
 import { Switch, Route } from "react-router-dom";
 import PostList from "./PostList";
 import ErrorNotFound from "./ErrorNotFound";
-import { connect } from 'react-redux';
-import { ADD_COMMENT, REMOVE_COMMENT, ADD_POST, REMOVE_POST } from "./actionTypes";
+import { connect } from "react-redux";
+import { ADD_POST, REMOVE_POST } from "./actionTypes";
 
 class Routes extends Component {
   constructor(props) {
@@ -46,9 +46,15 @@ class Routes extends Component {
     // map through our posts and edit data if id's match
     let editedPosts = this.state.posts.map(post => {
       if (post.id.toString() === postData.id.toString()) {
-        return { ...post, title: postData.title, description: postData.description, body: postData.body, comments: [] };
+        return {
+          ...post,
+          title: postData.title,
+          description: postData.description,
+          body: postData.body,
+          comments: []
+        };
       }
-      return post
+      return post;
     });
     this.setState({ posts: editedPosts });
   }
@@ -72,9 +78,16 @@ class Routes extends Component {
             path="/posts/:id"
             render={rtProps => {
               const post = this.props.posts.find(
-                post => post.id.toString() === rtProps.match.params.id
+                post => +post.id === +rtProps.match.params.id
               );
-              return <PostDetail {...rtProps} post={post} deletePost={this.deletePost} editPost={this.editPost} />;
+              return (
+                <PostDetail
+                  {...rtProps}
+                  post={post}
+                  deletePost={this.deletePost}
+                  editPost={this.editPost}
+                />
+              );
             }}
           />
           <Route
@@ -86,7 +99,8 @@ class Routes extends Component {
                 edit={false}
                 addPost={this.addPost}
                 editPost={this.editPost}
-                {...rtProps} />
+                {...rtProps}
+              />
             )}
           />
           <Route path="*" component={ErrorNotFound} />
@@ -98,9 +112,8 @@ class Routes extends Component {
 
 function mapStateToProps(state) {
   return {
-    posts: state.posts,
-    comment: state.comments
-  }
+    posts: state.posts
+  };
 }
 
 export default connect(mapStateToProps)(Routes);

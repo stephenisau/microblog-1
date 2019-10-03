@@ -1,40 +1,59 @@
-import { ADD_COMMENT, REMOVE_COMMENT, ADD_POST, REMOVE_POST } from "./actionTypes";
-import uuid from 'uuid/v4';
+import {
+  ADD_COMMENT,
+  REMOVE_COMMENT,
+  ADD_POST,
+  REMOVE_POST
+} from "./actionTypes";
 
 const INITIAL_STATE = {
   posts: [
-    { id: 1, title: "test", description: "what am i", body: "i dont know", comments: [{ id: 1, text: "helloooo" }] },
-    { id: 2, title: "test2", description: "doggggg", body: "are cuteeeee", comments: [{ id: 2,  text: "gooodbyeeee" }] }
+    {
+      id: 100,
+      title: "test",
+      description: "what am i",
+      body: "i dont know",
+      comments: [{ postId: 100, id: 1, text: "helloooo" }]
+    },
+    {
+      id: 200,
+      title: "test2",
+      description: "doggggg",
+      body: "are cuteeeee",
+      comments: [{ postId: 200, id: 2, text: "gooodbyeeee" }]
+    }
   ]
-}
-
+};
 
 export default function rootReducer(state = INITIAL_STATE, action) {
-  // debugger;
   switch (action.type) {
     case ADD_COMMENT:
-      debugger;
       return {
         ...state,
-        comments:  [...state.comments, action.payload]
-      }
+        posts: state.posts.map(post =>
+          post.id === action.comment.postId
+            ? { ...post, comments: [...post.comments, action.comment] }
+            : post
+        )
+      };
     case REMOVE_COMMENT:
       return {
         ...state,
-        comments: state.comments.filter(comment => comment.id !== action.payload)
-      }
+        comments: state.comments.filter(
+          comment => comment.id !== action.payload
+        )
+      };
     case ADD_POST:
       return {
         ...state,
         posts: [...state.posts, action.payload]
-      }
+      };
     case REMOVE_POST:
       return {
         ...state,
         posts: state.posts.filter(post => post.id !== action.payload)
-      }
+      };
 
     default:
-      return state
+      return state;
   }
 }
