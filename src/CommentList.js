@@ -5,15 +5,19 @@ class CommentList extends Component {
 
   render() {
     const { posts, postId } = this.props;
-    const postComments = posts.comments.map(comment => {
-      if (comment.postId.toString() === postId.toString()) {
-        return (<div key={comment.id}>
+    const postComments = posts.map(post => {
+      return post.comments.map(comment => {
+        return (<div>
           <li>{comment.text}</li>
           <button>Edit</button>
           <button>Delete</button>
         </div>)
-      }
+      // }
+      
     });
+    // if (comment.postId.toString() === postId.toString()) {
+    });
+    debugger;
 
     return (
       <div>

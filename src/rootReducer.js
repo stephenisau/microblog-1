@@ -16,7 +16,7 @@ export default function rootReducer(state = INITIAL_STATE, action) {
       debugger;
       return {
         ...state,
-        comments:  action.payload
+        comments:  [...state.comments, action.payload]
       }
     case REMOVE_COMMENT:
       return {
