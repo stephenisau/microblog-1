@@ -2,7 +2,8 @@ import {
   ADD_COMMENT,
   REMOVE_COMMENT,
   ADD_POST,
-  REMOVE_POST
+  REMOVE_POST,
+  EDIT_POST
 } from "./actionTypes";
 
 export function addComment(comment) {
@@ -19,11 +20,20 @@ export function removeComment(id) {
   };
 }
 
+
+
 export function addPost(post) {
   return {
     type: ADD_POST,
     post: post
   };
+}
+
+export function editPost(post) {
+  return {
+    type: EDIT_POST,
+    post: post
+  }
 }
 
 export function removePost(id) {

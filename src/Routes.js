@@ -6,7 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import PostList from "./PostList";
 import ErrorNotFound from "./ErrorNotFound";
 import { connect } from "react-redux";
-import { ADD_POST, REMOVE_POST } from "./actionTypes";
+import { ADD_POST, REMOVE_POST, EDIT_POST } from "./actionTypes";
 
 class Routes extends Component {
   constructor(props) {
@@ -43,23 +43,28 @@ class Routes extends Component {
   }
 
   editPost(postData) {
-    // map through our posts and edit data if id's match
-    let editedPosts = this.state.posts.map(post => {
-      if (post.id.toString() === postData.id.toString()) {
-        return {
-          ...post,
-          title: postData.title,
-          description: postData.description,
-          body: postData.body,
-          comments: []
-        };
-      }
-      return post;
+    this.props.dispatch({
+      type: EDIT_POST,
+      payload: postData
     });
-    this.setState({ posts: editedPosts });
+    // map through our posts and edit data if id's match
+    // let editedPosts = this.state.posts.map(post => {
+    //   if (post.id.toString() === postData.id.toString()) {
+    //     return {
+    //       ...post,
+    //       title: postData.title,
+    //       description: postData.description,
+    //       body: postData.body,
+    //       comments: []
+    //     };
+    //   }
+    //   return post;
+    // });
+    // this.setState({ posts: editedPosts });
   }
 
   render() {
+    console.log(this.state)
     return (
       <div>
         <Switch>

@@ -29,7 +29,7 @@ class NewPostForm extends Component {
       let updatedPost = { title, description, body, id };
       this.props.editPost(updatedPost);
     } else {
-      this.props.addPost({ ...this.state, id: uuid() });
+      this.props.addPost({ ...this.state, id: 10 });
       this.setState({
         title: "",
         description: "",
@@ -40,6 +40,7 @@ class NewPostForm extends Component {
   }
 
   render() {
+
     const button = this.props.edit ? (
       <button type="submit" className="btn btn-warning">
         Update
@@ -104,5 +105,6 @@ class NewPostForm extends Component {
     );
   }
 }
+
 
 export default withRouter(NewPostForm);

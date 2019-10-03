@@ -2,7 +2,8 @@ import {
   ADD_COMMENT,
   REMOVE_COMMENT,
   ADD_POST,
-  REMOVE_POST
+  REMOVE_POST,
+  EDIT_POST
 } from "./actionTypes";
 
 const INITIAL_STATE = {
@@ -47,6 +48,17 @@ export default function rootReducer(state = INITIAL_STATE, action) {
         ...state,
         posts: [...state.posts, action.payload]
       };
+
+    case EDIT_POST:
+      debugger;
+      return {
+        ...state,
+        posts: state.posts.map(post => 
+          post.id === action.payload.id
+          ? action.payload
+          : post
+        )
+      }
     case REMOVE_POST:
       return {
         ...state,
