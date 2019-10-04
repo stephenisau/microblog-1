@@ -3,8 +3,28 @@ import {
   REMOVE_COMMENT,
   ADD_POST,
   REMOVE_POST,
-  EDIT_POST
+  EDIT_POST,
+  LOAD_POSTS
 } from "./actionTypes";
+import axios from "axios";
+
+export function getPostsFromAPI() {
+  return async function (dispatch) {
+    try {
+      let res = await axios.get('http://localhost:5000/api/posts')
+      dispatch(getPosts(res.data))
+    } catch (err) {
+      console.error(err.res.data);
+    }
+  };
+}
+
+function getPosts(posts) {
+  return {
+    type: LOAD_POSTS,
+    posts
+  }
+}
 
 export function addComment(comment) {
   return {
