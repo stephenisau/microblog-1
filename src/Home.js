@@ -1,14 +1,24 @@
 import React, { Component } from "react";
-import PostList from "./PostList";
+import PostCard from "./PostCard";
 
 class Home extends Component {
+
+  componentDidMount() {
+    this.props.getPostsFromAPI();
+  }
+
   render() {
     const { posts } = this.props;
-    return (
-      <div className="container">
-        <PostList posts={posts}/>
-      </div>
-    );
+
+    if (posts.length > 0) {
+      return (
+        <div className="container">
+          {posts.map(post => <PostCard key={post.id} post={post}/>)}
+        </div>
+      )
+    } else {
+      return (<div>Loading...</div>)
+    }
   }
 }
 

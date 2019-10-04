@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { getPostsFromAPI } from "./actionCreators";
 
 class PostList extends Component {
+
   componentDidMount() {
     this.props.getPostsFromAPI();
   }
@@ -22,13 +23,4 @@ class PostList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    posts: state.posts
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  { getPostsFromAPI }
-)(PostList);
+export default PostList;
