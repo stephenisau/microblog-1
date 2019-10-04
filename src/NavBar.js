@@ -4,21 +4,23 @@ import { NavLink } from "react-router-dom";
 class NavBar extends Component {
   render() {
     return (
-      <ul className="nav">
-        <li className="nav-item">
+      <div className="container">
+        <div className="jumbotron">
           <h1>Microblog</h1>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" exact to="/">
-            Blog
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" exact to="/new">
-            Add New post
-          </NavLink>
-        </li>
-      </ul>
+          <div className="d-flex justify-content-center">
+            <p className="nav-item">
+              <NavLink className="nav-link" exact to="/">
+                Blog
+              </NavLink>
+            </p>
+            <p className="nav-item">
+              <NavLink className="nav-link" exact to="/new">
+                Add New post
+              </NavLink>
+            </p>
+          </div>
+        </div>
+      </div>
     );
   }
 }

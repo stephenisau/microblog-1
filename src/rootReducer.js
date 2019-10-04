@@ -3,27 +3,13 @@ import {
   REMOVE_COMMENT,
   ADD_POST,
   REMOVE_POST,
-  EDIT_POST,
-  LOAD_POSTS
+  LOAD_POSTS,
+  PUT_POST,
+  ONE_POST
 } from "./actionTypes";
 
 const INITIAL_STATE = {
-  posts: [
-    {
-      id: 100,
-      title: "test",
-      description: "what am i",
-      body: "i dont know",
-      comments: [{ postId: 100, id: 1, text: "helloooo" }]
-    },
-    {
-      id: 200,
-      title: "test2",
-      description: "doggggg",
-      body: "are cuteeeee",
-      comments: [{ postId: 200, id: 2, text: "gooodbyeeee" }]
-    }
-  ]
+  posts: []
 };
 
 export default function rootReducer(state = INITIAL_STATE, action) {
@@ -48,23 +34,33 @@ export default function rootReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         posts: [...state.posts, ...action.posts]
-      }
-      // return our posts
+      };
+    case ONE_POST:
+      return {
+        ...state,
+        post: { ...action.post }
+      };
+    case PUT_POST:
+      return {
+        ...state,
+        posts: state.posts.map(post =>
+          post.id === action.payload.id ? action.payload : post
+        )
+      };
+    // return our posts
     case ADD_POST:
       return {
         ...state,
         posts: [...state.posts, action.payload]
       };
 
-    case EDIT_POST:
-      return {
-        ...state,
-        posts: state.posts.map(post => 
-          post.id === action.payload.id
-          ? action.payload
-          : post
-        )
-      }
+    // case EDIT_POST:
+    //   return {
+    //     ...state,
+    //     posts: state.posts.map(post =>
+    //       post.id === action.payload.id ? action.payload : post
+    //     )
+    //   };
     case REMOVE_POST:
       return {
         ...state,

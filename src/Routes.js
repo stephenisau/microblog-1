@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Home from "./Home";
 import NewPostForm from "./NewPostForm";
-import PostDetail from "./PostDetail";
+import PostContainer from "./containers/PostContainer";
 import { Switch, Route } from "react-router-dom";
 import PostList from "./PostList";
 import ErrorNotFound from "./ErrorNotFound";
@@ -9,62 +9,8 @@ import { connect } from "react-redux";
 import { ADD_POST, REMOVE_POST, EDIT_POST } from "./actionTypes";
 
 class Routes extends Component {
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //   posts: [
-    //     { id: 1, title: "test", description: "what am i", body: "i dont know", comments: [{ id: 1, text: "helloooo" }] },
-    //     { id: 2, title: "test2", description: "doggggg", body: "are cuteeeee", comments: [{ id: 2, text: "gooodbyeeee" }] }
-    //   ]
-    // };
-    this.addPost = this.addPost.bind(this);
-    this.deletePost = this.deletePost.bind(this);
-    this.editPost = this.editPost.bind(this);
-  }
-
-  addPost(postToBeAdded) {
-    this.props.dispatch({
-      type: ADD_POST,
-      payload: postToBeAdded
-    });
-    // this.setState(state => ({
-    //   posts: [...state.posts, postToBeAdded]
-    // }));
-  }
-
-  deletePost(id) {
-    this.props.dispatch({
-      type: REMOVE_POST,
-      payload: id
-    });
-    // this.setState(st => ({
-    //   posts: st.posts.filter(post => post.id !== id)
-    // }));
-  }
-
-  editPost(postData) {
-    this.props.dispatch({
-      type: EDIT_POST,
-      payload: postData
-    });
-    // map through our posts and edit data if id's match
-    // let editedPosts = this.state.posts.map(post => {
-    //   if (post.id.toString() === postData.id.toString()) {
-    //     return {
-    //       ...post,
-    //       title: postData.title,
-    //       description: postData.description,
-    //       body: postData.body,
-    //       comments: []
-    //     };
-    //   }
-    //   return post;
-    // });
-    // this.setState({ posts: editedPosts });
-  }
-
   render() {
-    console.log(this.state)
+    console.log(this.props);
     return (
       <div>
         <Switch>
@@ -82,15 +28,21 @@ class Routes extends Component {
             exact
             path="/posts/:id"
             render={rtProps => {
-              const post = this.props.posts.find(
-                post => +post.id === +rtProps.match.params.id
-              );
+              // const post = this.props.posts.find(
+              //   post => +post.id === +rtProps.match.params.id
+              // );
               return (
-                <PostDetail
+                <PostContainer
                   {...rtProps}
-                  post={post}
-                  deletePost={this.deletePost}
-                  editPost={this.editPost}
+                  // post={{
+                  //   id: 1,
+                  //   title: "hello",
+                  //   description: "hello again",
+                  //   body: "no more",
+                  //   comments: []
+                  // }}
+                  // deletePost={this.deletePost}
+                  // editPost={this.editPost}
                 />
               );
             }}

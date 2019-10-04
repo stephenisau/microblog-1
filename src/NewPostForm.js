@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import uuid from "uuid/v4";
-import { withRouter } from "react-router";
+import { connect } from "react-redux";
+import { putPostFromAPI } from "./actionCreators";
 
 class NewPostForm extends Component {
   constructor(props) {
@@ -25,9 +25,10 @@ class NewPostForm extends Component {
     evt.preventDefault();
     if (this.props.edit) {
       let { title, description, body } = this.state;
+      let updatedPost = { title, description, body };
       const id = this.props.post.id;
-      let updatedPost = { title, description, body, id };
-      this.props.editPost(updatedPost);
+      this.props.putPostFromAPI(id, updatedPost);
+      //   this.props.editPost(updatedPost);
     } else {
       this.props.addPost({ ...this.state, id: 10 });
       this.setState({
@@ -40,7 +41,6 @@ class NewPostForm extends Component {
   }
 
   render() {
-
     const button = this.props.edit ? (
       <button type="submit" className="btn btn-warning">
         Update
@@ -106,5 +106,13 @@ class NewPostForm extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    posts: state.posts
+  };
+}
 
-export default withRouter(NewPostForm);
+export default connect(
+  mapStateToProps,
+  { putPostFromAPI }
+)(NewPostForm);
