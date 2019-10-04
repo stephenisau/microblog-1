@@ -14,7 +14,6 @@ export function getPostsFromAPI() {
   return async function(dispatch) {
     try {
       let res = await axios.get("http://localhost:5000/api/posts");
-      debugger;
       dispatch(getPosts(res.data));
     } catch (err) {
       console.error(err.res.data);

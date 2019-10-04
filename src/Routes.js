@@ -3,7 +3,6 @@ import Home from "./Home";
 import NewPostForm from "./NewPostForm";
 import PostContainer from "./containers/PostContainer";
 import { Switch, Route } from "react-router-dom";
-import PostList from "./PostList";
 import HomeContainer from "./containers/HomeContainer";
 import ErrorNotFound from "./ErrorNotFound";
 import { connect } from "react-redux";

@@ -31,10 +31,9 @@ export default function rootReducer(state = INITIAL_STATE, action) {
         )
       };
     case LOAD_POSTS:
-      debugger;
       return {
         ...state,
-        posts: [...state.posts, ...action.posts]
+        posts: [...action.posts]
       };
     case ONE_POST:
       return {
