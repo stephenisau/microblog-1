@@ -1,56 +1,40 @@
 import React, { Component } from "react";
 import Home from "./Home";
-import NewPostForm from "./NewPostForm";
+import NewPostFormContainer from "./containers/NewPostFormContainer";
 import PostContainer from "./containers/PostContainer";
 import { Switch, Route } from "react-router-dom";
 import HomeContainer from "./containers/HomeContainer";
 import ErrorNotFound from "./ErrorNotFound";
 import { connect } from "react-redux";
-import { ADD_POST, REMOVE_POST, EDIT_POST } from "./actionTypes";
+import { ADD_POST, REMOVE_POST, EDIT_POST } from "./actions/actionTypes";
 
 class Routes extends Component {
   render() {
     console.log(this.props);
     return (
-      <div>
+      <React.Fragment>
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => <HomeContainer />}
-          />
-          <Route
-            exact
-            path="/posts/:id"
+          <Route exact path="/" render={() => <HomeContainer />}/>
+          <Route exact path="/posts/:id"
             render={rtProps => {
               return (
                 <PostContainer
-                  {...rtProps}/>
+                  {...rtProps} />
               );
             }}
           />
-          <Route
-            exact
-            path="/new"
+          <Route exact path="/new"
             render={rtProps => (
-              <NewPostForm
+              <NewPostFormContainer
                 post={{}}
                 edit={false}
-                {...rtProps}
-              />
-            )}
-          />
+                {...rtProps} />
+            )} />
           <Route path="*" component={ErrorNotFound} />
         </Switch>
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    posts: state.posts
-  };
-}
-
-export default connect(mapStateToProps)(Routes);
+export default Routes;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./PostDetail.css";
-import NewPostForm from "./NewPostForm";
+import NewPostForm from "./components/NewPostForm";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
 
@@ -28,10 +28,11 @@ class PostDetail extends Component {
   }
 
   render() {
+    console.log("PROPS: ", this.props);
     const { post } = this.props;
     if (post) {
       const displayPost = this.state.edit ? (
-        <NewPostForm edit={true} editPost={this.props.editPost} post={post} />
+        <NewPostForm edit={true} editPost={this.props.editPostFromAPI} post={post} />
       ) : (
         <div>
           <h1>{post.title}</h1>

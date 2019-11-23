@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { putPostFromAPI } from "./actionCreators";
+import { withRouter } from "react-router";
 
 class NewPostForm extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class NewPostForm extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.cancel = this.cancel.bind(this);
   }
 
   handleChange(evt) {
@@ -21,16 +22,20 @@ class NewPostForm extends Component {
     });
   }
 
+  cancel() {
+    this.props.history.push("/");
+  }
+
   handleSubmit(evt) {
     evt.preventDefault();
     if (this.props.edit) {
       let { title, description, body } = this.state;
       let updatedPost = { title, description, body };
       const id = this.props.post.id;
-      this.props.putPostFromAPI(id, updatedPost);
-      //   this.props.editPost(updatedPost);
+      debugger;
+      this.props.editPost(id, updatedPost);
     } else {
-      this.props.addPost({ ...this.state, id: 10 });
+      this.props.addPostToAPI({ ...this.state });
       this.setState({
         title: "",
         description: "",
@@ -41,6 +46,8 @@ class NewPostForm extends Component {
   }
 
   render() {
+    console.log("PROPS IN NEWPOSTFORM CONTAINER", this.props);
+    console.log(this.state);
     const button = this.props.edit ? (
       <button type="submit" className="btn btn-warning">
         Update
@@ -96,7 +103,7 @@ class NewPostForm extends Component {
           </div>
           {button}
           <button type="submit" className="btn btn-danger">
-            <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+            <Link to="/" onClick={this.cancel} style={{ color: "white", textDecoration: "none" }}>
               Cancel
             </Link>
           </button>
@@ -106,13 +113,4 @@ class NewPostForm extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    posts: state.posts
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  { putPostFromAPI }
-)(NewPostForm);
+export default withRouter(NewPostForm);

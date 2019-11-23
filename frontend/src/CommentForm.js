@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { addComment, removeComment } from "./actionCreators";
+import { addComment, removeComment } from "./actions/actionCreators";
 import { connect } from "react-redux";
 
 class CommentForm extends Component {

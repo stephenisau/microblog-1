@@ -4,16 +4,18 @@ import {
   ADD_POST,
   REMOVE_POST,
   LOAD_POSTS,
-  PUT_POST,
+  EDIT_POST,
   ONE_POST
-} from "./actionTypes";
+} from "../actions/actionTypes";
 
 const INITIAL_STATE = {
   posts: []
 };
 
 export default function rootReducer(state = INITIAL_STATE, action) {
+  
   switch (action.type) {
+
     case ADD_COMMENT:
       return {
         ...state,
@@ -40,7 +42,8 @@ export default function rootReducer(state = INITIAL_STATE, action) {
         ...state,
         post: { ...action.post }
       };
-    case PUT_POST:
+    case EDIT_POST:
+      debugger;
       return {
         ...state,
         posts: state.posts.map(post =>
@@ -51,16 +54,9 @@ export default function rootReducer(state = INITIAL_STATE, action) {
     case ADD_POST:
       return {
         ...state,
-        posts: [...state.posts, action.payload]
+        posts: [...state.posts, action.post]
       };
 
-    // case EDIT_POST:
-    //   return {
-    //     ...state,
-    //     posts: state.posts.map(post =>
-    //       post.id === action.payload.id ? action.payload : post
-    //     )
-    //   };
     case REMOVE_POST:
       return {
         ...state,

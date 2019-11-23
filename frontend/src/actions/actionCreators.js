@@ -5,18 +5,17 @@ import {
   REMOVE_POST,
   EDIT_POST,
   LOAD_POSTS,
-  PUT_POST,
   ONE_POST
 } from "./actionTypes";
 import axios from "axios";
 
 export function getPostsFromAPI() {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
       let res = await axios.get("http://localhost:5000/api/posts");
       dispatch(getPosts(res.data));
     } catch (err) {
-      console.error(err.res.data);
+      console.log("Error getting posts from API");
     }
   };
 }
@@ -27,35 +26,56 @@ function getPosts(posts) {
     posts
   };
 }
-export function putPostFromAPI(id, updatedPost) {
-  return async function(dispatch) {
+
+export function editPostFromAPI(id, updatedPost) {
+  debugger;
+  return async function (dispatch) {
+    debugger;
     try {
       let res = await axios.put(`http://localhost:5000/api/posts/${id}`, {
         data: updatedPost
       });
-      dispatch(putPost(res.data));
+      dispatch(editPost(res.data));
     } catch (err) {
-      console.error(err.res.data);
+      console.log(`Error editing post ${id}`);
     }
   };
 }
 
-function putPost(post) {
+function editPost(post) {
   return {
-    type: PUT_POST,
+    type: EDIT_POST,
     post
   };
 }
 
 export function getOnePostFromAPI(id) {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
       let res = await axios.get(`http://localhost:5000/api/posts/${id}`);
       dispatch(getOnePost(res.data));
     } catch (err) {
-      console.error(err.res.data);
+      console.log(`Error getting post ${id}`);
     }
   };
+}
+
+
+function addPost(post) {
+  return {
+    type: ADD_POST,
+    post
+  }
+}
+
+export function addPostToAPI(post) {
+  debugger;
+  const { title, description, body } = post;
+  return async function (dispatch) {
+    debugger;
+    let res = await axios.post(`http://localhost:5000/api/posts/`, { title, description, body });
+    dispatch(addPost(res.data));
+  }
 }
 
 function getOnePost(post) {
@@ -76,20 +96,6 @@ export function removeComment(id) {
   return {
     type: REMOVE_COMMENT,
     id: id
-  };
-}
-
-export function addPost(post) {
-  return {
-    type: ADD_POST,
-    post: post
-  };
-}
-
-export function editPost(post) {
-  return {
-    type: EDIT_POST,
-    post: post
   };
 }
 

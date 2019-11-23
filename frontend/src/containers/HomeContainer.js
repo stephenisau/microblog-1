@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { getPostsFromAPI } from "../actionCreators";
+import { getPostsFromAPI } from "../actions/actionCreators";
 import Home from "../Home";
 
 function mapStateToProps(state) {
