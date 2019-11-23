@@ -43,14 +43,13 @@ export default function rootReducer(state = INITIAL_STATE, action) {
         post: { ...action.post }
       };
     case EDIT_POST:
-      debugger;
       return {
         ...state,
         posts: state.posts.map(post =>
-          post.id === action.payload.id ? action.payload : post
+          post.id === action.post.id ? action.post : post
         )
       };
-    // return our posts
+      
     case ADD_POST:
       return {
         ...state,
