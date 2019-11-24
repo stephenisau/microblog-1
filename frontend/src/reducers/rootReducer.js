@@ -9,7 +9,8 @@ import {
 } from "../actions/actionTypes";
 
 const INITIAL_STATE = {
-  posts: []
+  posts: [],
+  comments: []
 };
 
 export default function rootReducer(state = INITIAL_STATE, action) {
@@ -28,8 +29,8 @@ export default function rootReducer(state = INITIAL_STATE, action) {
     case REMOVE_COMMENT:
       return {
         ...state,
-        comments: state.comments.filter(
-          comment => comment.id !== action.payload
+        comments: state.post.comments.filter(
+          comment => comment.id !== action.commentId
         )
       };
     case LOAD_POSTS:

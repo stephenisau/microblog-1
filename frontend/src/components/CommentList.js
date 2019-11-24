@@ -1,34 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Comment from "./Comment";
 
 class CommentList extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
 
-  handleClick = () => {
-    let postId = this.props.postId
-    this.props.removeComment(postId)
+  static defaultProps = {
+    comments: []
   }
 
   render() {
     console.log(this.props);
-    const { post } = this.props;
-    const postComments = post.comments.map(comment => {
+    const { comments } = this.props;
+    const postComments = comments.map(comment => {
       return (
-        <div key={comment.id}>
-          <li>{comment.text}</li>
-          <button style={{ color: "red" }} >
-            <b>X</b>
-          </button>
-        </div>
+        <Comment key={comment.id} id={comment.id} text={comment.text} delete={this.props.removeComment}/>
       );
     });
 
     return (
       <div>
-        <ul style={{ listStyle: "none" }}>{postComments}</ul>
+        <ul style={{ listStyle: "none" }}>
+          {postComments}
+          </ul>
       </div>
     );
   }

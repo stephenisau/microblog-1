@@ -10,24 +10,39 @@ class PostDetail extends Component {
     this.state = {
       edit: false,
     };
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
+    this.deletePost = this.deletePost.bind(this);
+    this.editPost = this.editPost.bind(this);
+    this.addComment = this.addComment.bind(this);
+    this.removeComment = this.removeComment.bind(this);
   }
 
   componentDidMount() {
     this.props.getOnePostFromAPI(this.props.match.params.id);
   }
 
-  handleDelete(evt) {
-    this.props.removePostFromAPI(this.props.post.id);
+
+  deletePost() {
+    let postId = this.props.post.id
+    this.props.removePostFromAPI(postId);
     this.props.history.push("/");
   }
 
-  handleEdit(evt) {
+  editPost() {
     this.setState({ edit: true });
   }
 
+  addComment(comment) {
+    let postId = this.props.post.id;
+    this.props.addCommentToAPI(postId, comment);
+  }
+
+  removeComment(commentId){
+    let postId = this.props.post.id;
+    this.props.removeCommentFromAPI(postId, commentId);
+  }
+
   render() {
+    console.log(this.props);
     const { post } = this.props;
     if (post) {
       const displayPost = this.state.edit ? (
@@ -38,16 +53,16 @@ class PostDetail extends Component {
           <h5>{post.description}</h5>
           <p>{post.body}</p>
           <div className="post-buttons">
-            <button onClick={this.handleEdit} className="edit-button">
+            <button onClick={this.editPost} className="edit-button">
               <i className="fas fa-edit"></i>
             </button>
-            <button className="delete-button" onClick={this.handleDelete}>
+            <button className="delete-button" onClick={this.deletePost}>
               <i className="far fa-trash-alt"></i>
             </button>
           </div>
           <hr />
-          <CommentList post={post} postId={post.id} />
-          <CommentForm postId={post.id}  />
+          <CommentList comments={post.comments} postId={post.id} removeComment={this.removeComment}/>
+          <CommentForm postId={post.id}  addComment={this.addComment}/>
         </div>
       );
 

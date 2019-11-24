@@ -4,7 +4,6 @@ import CommentList from "../components/CommentList";
 
 
 function mapStateToProps(state) {
-  debugger;
   return {
     post: state.comments
   }
