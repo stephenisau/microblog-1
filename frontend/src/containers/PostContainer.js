@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { getOnePostFromAPI, removePost, editPostFromAPI } from "../actions/actionCreators";
+import { getOnePostFromAPI, removePostFromAPI, editPostFromAPI, addCommentToAPI, removeCommentFromAPI } from "../actions/actionCreators";
 import PostDetail from "../PostDetail";
 
 function mapStateToProps(state) {
@@ -10,5 +10,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getOnePostFromAPI, removePost, editPostFromAPI }
+  { getOnePostFromAPI, removePostFromAPI, editPostFromAPI, addCommentToAPI, removeCommentFromAPI }
 )(PostDetail);

@@ -32,7 +32,6 @@ class NewPostForm extends Component {
       let { title, description, body } = this.state;
       let updatedPost = { title, description, body };
       const id = this.props.post.id;
-      debugger;
       this.props.editPost(id, updatedPost);
     } else {
       this.props.addPostToAPI({ ...this.state });

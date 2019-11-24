@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { addComment, removeComment } from "./actions/actionCreators";
+import { addCommentToAPI, removeCommentFromAPI } from "./actions/actionCreators";
 import { connect } from "react-redux";
 
 class CommentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ""
+      text: "",
+      postId: this.props.postId
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,7 +21,9 @@ class CommentForm extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    this.props.addComment({ ...this.state, postId: this.props.postId, id: 3 });
+    let { text } = this.state;
+    let postId = this.props.postId;
+    this.props.addComment(postId, text);
     this.setState({
       text: ""
     });
@@ -28,17 +31,23 @@ class CommentForm extends Component {
   }
 
   render() {
+    console.log(this.props);
+    console.log(this.state);
+
     return (
       <div>
         <h1>Comments</h1>
         <form onSubmit={this.handleSubmit}>
           <input
+            required="true"
             name="text"
             id="text"
             value={this.state.text}
             onChange={this.handleChange}
           />
-          <button className="btn btn-primary">Submit</button>
+          <button 
+            onClick={this.handleSubmit}
+            className="btn btn-primary">Submit</button>
         </form>
       </div>
     );
@@ -47,7 +56,7 @@ class CommentForm extends Component {
 
 const connected = connect(
   null,
-  { addComment, removeComment }
+  { addCommentToAPI }
 );
 
 export default connected(CommentForm);

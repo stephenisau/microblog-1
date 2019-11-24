@@ -13,7 +13,7 @@ const INITIAL_STATE = {
 };
 
 export default function rootReducer(state = INITIAL_STATE, action) {
-  
+
   switch (action.type) {
 
     case ADD_COMMENT:
@@ -49,7 +49,7 @@ export default function rootReducer(state = INITIAL_STATE, action) {
           post.id === action.post.id ? action.post : post
         )
       };
-      
+
     case ADD_POST:
       return {
         ...state,
@@ -59,7 +59,7 @@ export default function rootReducer(state = INITIAL_STATE, action) {
     case REMOVE_POST:
       return {
         ...state,
-        posts: state.posts.filter(post => post.id !== action.payload)
+        posts: state.posts.filter(post => post.id !== action.id)
       };
 
     default:

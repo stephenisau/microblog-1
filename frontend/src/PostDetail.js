@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import "./PostDetail.css";
 import NewPostForm from "./components/NewPostForm";
-import CommentList from "./CommentList";
+import CommentList from "./components/CommentList";
 import CommentForm from "./CommentForm";
 
 class PostDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      edit: false
+      edit: false,
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
@@ -19,7 +19,7 @@ class PostDetail extends Component {
   }
 
   handleDelete(evt) {
-    this.props.deletePost(this.props.post.id);
+    this.props.removePostFromAPI(this.props.post.id);
     this.props.history.push("/");
   }
 
@@ -28,7 +28,6 @@ class PostDetail extends Component {
   }
 
   render() {
-    console.log("PROPS: ", this.props);
     const { post } = this.props;
     if (post) {
       const displayPost = this.state.edit ? (
@@ -48,7 +47,7 @@ class PostDetail extends Component {
           </div>
           <hr />
           <CommentList post={post} postId={post.id} />
-          <CommentForm postId={post.id} />
+          <CommentForm postId={post.id}  />
         </div>
       );
 
