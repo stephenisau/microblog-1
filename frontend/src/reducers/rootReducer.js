@@ -10,44 +10,29 @@ import {
 
 const INITIAL_STATE = {
   posts: [],
-  comments: []
+  comments: [],
+  post: {}
 };
 
-export default function rootReducer(state = INITIAL_STATE, action) {
+export default function rootReducer(state = {}, action) {
 
   switch (action.type) {
 
-    case ADD_COMMENT:
-      return {
-        ...state,
-        posts: state.posts.map(post =>
-          post.id === action.comment.postId
-            ? { ...post, comments: [...post.comments, action.comment] }
-            : post
-        )
-      };
-    case REMOVE_COMMENT:
-      return {
-        ...state,
-        comments: state.post.comments.filter(
-          comment => comment.id !== action.commentId
-        )
-      };
     case LOAD_POSTS:
-      return {
-        ...state,
-        posts: [...action.posts]
-      };
+      let copy = { ...state }
+      return { ...copy, posts: [...action.posts] };
+
     case ONE_POST:
       return {
-        ...state,
-        post: { ...action.post }
+        ...state, post: { ...action.post }
       };
+
     case EDIT_POST:
+      debugger;
       return {
         ...state,
-        posts: state.posts.map(post =>
-          post.id === action.post.id ? action.post : post
+        post: state.post.map(p =>
+          p.id === action.post.id ? action.post : p
         )
       };
 
@@ -58,10 +43,31 @@ export default function rootReducer(state = INITIAL_STATE, action) {
       };
 
     case REMOVE_POST:
+      let posts = { ...state };
+      let idx = state.posts.findIndex(post => post.id === action.id);
+      delete posts[idx];
+      return posts;
+
+    case ADD_COMMENT:
       return {
         ...state,
-        posts: state.posts.filter(post => post.id !== action.id)
+        post: { ...state.post, comments: [...state.post.comments, action.comment] }
       };
+
+    case REMOVE_COMMENT:
+      return {
+        ...state,
+        post: { ...state.post, 
+          comments: state.post.comments.filter(p => p.id !== action.commentId) }
+      }
+
+
+    // case VOTE:
+    //   return {
+    //     ...state,
+    //     [action.postId]: { ...state, votes: action.votes }
+    //   };
+
 
     default:
       return state;

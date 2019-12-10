@@ -27,7 +27,6 @@ class CommentForm extends Component {
     this.setState({
       text: ""
     });
-    // we want to handle the comment input
   }
 
   render() {

@@ -31,14 +31,14 @@ class PostDetail extends Component {
     this.setState({ edit: true });
   }
 
-  addComment(comment) {
-    let postId = this.props.post.id;
+  addComment(postId, comment) {
     this.props.addCommentToAPI(postId, comment);
   }
 
   removeComment(commentId){
     let postId = this.props.post.id;
     this.props.removeCommentFromAPI(postId, commentId);
+
   }
 
   render() {

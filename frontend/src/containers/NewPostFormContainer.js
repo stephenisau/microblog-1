@@ -5,5 +5,5 @@ import { withRouter } from "react-router";
 
 export default connect(
   null,
-  { addPostToAPI },
+  { addPostToAPI, editPostFromAPI },
   )(NewPostForm);

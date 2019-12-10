@@ -31,7 +31,13 @@ function getPosts(posts) {
 export function editPostFromAPI(id, updatedPost) {
   return async function (dispatch) {
     try {
-      let res = await axios.put(`http://localhost:5000/api/posts/${id}`, { updatedPost });
+      let { title, description, body } = updatedPost;
+      let res = await axios.put(`http://localhost:5000/api/posts/${id}`, { 
+        title,
+        description,
+        body
+       });
+      debugger;
       dispatch(editPost(res.data));
     } catch (err) {
       console.log(`Error editing post ${id}`);
@@ -81,10 +87,10 @@ export function addPostToAPI(post) {
 }
 
 export function removePostFromAPI(id) {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
       let res = await axios.delete(`http://localhost:5000/api/posts/${id}`);
-      dispatch(removePost(id=res.data.id))
+      dispatch(removePost(id = res.data.id))
     } catch (err) {
       console.log(`Error!`)
     }

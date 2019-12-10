@@ -16,12 +16,7 @@ class Routes extends Component {
         <Switch>
           <Route exact path="/" render={() => <HomeContainer />}/>
           <Route exact path="/posts/:id"
-            render={rtProps => {
-              return (
-                <PostContainer
-                  {...rtProps} />
-              );
-            }}
+            render={rtProps => <PostContainer {...rtProps} /> }
           />
           <Route exact path="/new"
             render={rtProps => (

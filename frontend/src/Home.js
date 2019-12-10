@@ -4,16 +4,16 @@ import PostCard from "./PostCard";
 class Home extends Component {
 
   componentDidMount() {
-    this.props.getPostsFromAPI();
+    if (!this.props.posts) {
+      this.props.getPostsFromAPI();
+    }
   }
 
   render() {
-    const { posts } = this.props;
-
-    if (posts.length > 0) {
+    if (this.props.posts) {
       return (
         <div className="container">
-          {posts.map(post => <PostCard key={post.id} post={post}/>)}
+          {this.props.posts.map(post => <PostCard key={post.id} post={post}/>)}
         </div>
       )
     } else {

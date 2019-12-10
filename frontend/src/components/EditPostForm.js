@@ -1,18 +1,13 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { withRouter } from "react-router";
+import { Link } from 'react-router-dom';
 
-class NewPostForm extends Component {
+class EditPostForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: props.post.title || "",
-      description: props.post.description || "",
-      body: props.post.body || "",
-      bold: false,
-      italic: false,
-      underline: false
+      title: "",
+      description:  "",
+      body:  ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,38 +26,14 @@ class NewPostForm extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    if (this.props.edit) {
-      let { title, description, body } = this.state;
-      let updatedPost = { title, description, body };
-      const id = this.props.post.id;
-      this.props.editPost(id, updatedPost);
-    } else {
-      this.props.addPostToAPI({ ...this.state });
-      this.setState({
-        title: "",
-        description: "",
-        body: ""
-      });
-    }
+    let { title, description, body } = this.state;
+    let updatedPost = { title, description, body };
+    const id = this.props.post.id;
+    this.props.editPost(id, updatedPost);
     this.props.history.push("/");
   }
 
-
-  handleBold = () => {
-    
-  }
-
   render() {
-    const button = this.props.edit ? (
-      <button type="submit" className="btn btn-warning">
-        Update
-      </button>
-    ) : (
-      <button type="submit" className="btn btn-primary">
-        Submit
-      </button>
-    );
-
     return (
       <div className="container">
         <h3>ADD NEW POST: </h3>
@@ -105,14 +76,10 @@ class NewPostForm extends Component {
               value={this.state.body}
               required
             />
-            
-            <span className="">
-              <button onClick={this.handleBold}><i class="fas fa-bold"></i></button>
-              <button onClick={this.handleItalic}><i class="fas fa-italic"></i></button>
-              <button onClick={this.handleUnderline}><i class="fas fa-underline"></i></button>
-            </span>
           </div>
-          {button}
+          <Link to={`${this.props.post.id}/edit`} className="btn btn-warning">
+            Update
+          </Link>
           <button type="submit" className="btn btn-danger">
             <Link to="/" onClick={this.cancel} style={{ color: "white", textDecoration: "none" }}>
               Cancel
@@ -124,4 +91,4 @@ class NewPostForm extends Component {
   }
 }
 
-export default withRouter(NewPostForm);
+export default EditPostForm;
