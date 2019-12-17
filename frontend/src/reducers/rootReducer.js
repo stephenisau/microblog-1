@@ -8,32 +8,30 @@ import {
   ONE_POST
 } from "../actions/actionTypes";
 
-const INITIAL_STATE = {
-  posts: [],
-  comments: [],
-  post: {}
-};
 
 export default function rootReducer(state = {}, action) {
+  let currPost;
+  let newPost;
+  let copy;
+  let posts;
+  let idx;
 
   switch (action.type) {
 
     case LOAD_POSTS:
-      let copy = { ...state }
+      copy = { ...state }
       return { ...copy, posts: [...action.posts] };
 
     case ONE_POST:
       return {
-        ...state, post: { ...action.post }
+        ...state, [action.post.id]: { ...action.post }
       };
 
     case EDIT_POST:
-      debugger;
+      newPost = { ...action.post }
       return {
         ...state,
-        post: state.post.map(p =>
-          p.id === action.post.id ? action.post : p
-        )
+        [action.post.id]: { ...action.post, comments: state[action.post.id].comments }
       };
 
     case ADD_POST:
@@ -43,22 +41,26 @@ export default function rootReducer(state = {}, action) {
       };
 
     case REMOVE_POST:
-      let posts = { ...state };
-      let idx = state.posts.findIndex(post => post.id === action.id);
+      posts = { ...state };
+      idx = state.posts.findIndex(post => post.id === action.id);
       delete posts[idx];
       return posts;
 
     case ADD_COMMENT:
+      currPost = state[action.postId];
       return {
         ...state,
-        post: { ...state.post, comments: [...state.post.comments, action.comment] }
+        [action.postId]: { ...currPost, comments: [...currPost.comments, action.comment] }
       };
 
     case REMOVE_COMMENT:
+      currPost = state[action.postId];
       return {
         ...state,
-        post: { ...state.post, 
-          comments: state.post.comments.filter(p => p.id !== action.commentId) }
+        [action.postId]: {
+          ...currPost,
+          comments: currPost.comments.filter(p => p.id !== action.commentId)
+        }
       }
 
 

@@ -28,27 +28,26 @@ function getPosts(posts) {
   };
 }
 
-export function editPostFromAPI(id, updatedPost) {
+export function editPostFromAPI(id, title, description, body) {
   return async function (dispatch) {
     try {
-      let { title, description, body } = updatedPost;
-      let res = await axios.put(`http://localhost:5000/api/posts/${id}`, { 
+      let res = await axios.put(`http://localhost:5000/api/posts/${id}`, {
         title,
         description,
         body
-       });
-      debugger;
-      dispatch(editPost(res.data));
+      });
+      dispatch(editPost(res.data, id));
     } catch (err) {
       console.log(`Error editing post ${id}`);
     }
   };
 }
 
-function editPost(post) {
+function editPost(post, id) {
   return {
     type: EDIT_POST,
-    post
+    post,
+    id
   };
 }
 
@@ -56,24 +55,26 @@ export function getOnePostFromAPI(id) {
   return async function (dispatch) {
     try {
       let res = await axios.get(`http://localhost:5000/api/posts/${id}`);
-      dispatch(getOnePost(res.data));
+      dispatch(getOnePost(res.data, id));
     } catch (err) {
       console.log(`Error getting post ${id}`);
     }
   };
 }
 
-function getOnePost(post) {
+function getOnePost(post, id) {
   return {
     type: ONE_POST,
-    post
+    post,
+    id
   };
 }
 
 
-function addPost(post) {
+function addPost(post, id) {
   return {
     type: ADD_POST,
+    id,
     post
   }
 }

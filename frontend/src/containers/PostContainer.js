@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { getOnePostFromAPI, removePostFromAPI, editPostFromAPI, addCommentToAPI, removeCommentFromAPI } from "../actions/actionCreators";
-import PostDetail from "../PostDetail";
+import PostDetail from "./PostDetail";
 
 function mapStateToProps(state) {
   return {

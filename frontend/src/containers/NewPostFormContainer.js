@@ -1,9 +1,17 @@
 import { connect } from 'react-redux';
-import { addPostToAPI, editPostFromAPI } from '../actions/actionCreators';
+import { addPostToAPI, editPostFromAPI, getOnePostFromAPI } from '../actions/actionCreators';
 import NewPostForm from '../components/NewPostForm';
 import { withRouter } from "react-router";
 
+
+function mapStateToProps(state) {
+  return {
+    post: state.post
+  };
+}
+
+
 export default connect(
   null,
-  { addPostToAPI, editPostFromAPI },
+  { addPostToAPI, editPostFromAPI, getOnePostFromAPI },
   )(NewPostForm);

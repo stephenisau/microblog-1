@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Home from "./Home";
 import NewPostFormContainer from "./containers/NewPostFormContainer";
-import PostContainer from "./containers/PostContainer";
+import PostDetail from "./containers/PostDetail";
 import { Switch, Route } from "react-router-dom";
 import HomeContainer from "./containers/HomeContainer";
 import ErrorNotFound from "./ErrorNotFound";
@@ -10,13 +10,12 @@ import { ADD_POST, REMOVE_POST, EDIT_POST } from "./actions/actionTypes";
 
 class Routes extends Component {
   render() {
-    console.log(this.props);
     return (
       <React.Fragment>
         <Switch>
           <Route exact path="/" render={() => <HomeContainer />}/>
           <Route exact path="/posts/:id"
-            render={rtProps => <PostContainer {...rtProps} /> }
+            render={rtProps => <PostDetail {...rtProps} /> }
           />
           <Route exact path="/new"
             render={rtProps => (

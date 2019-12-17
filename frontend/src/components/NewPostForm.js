@@ -26,7 +26,8 @@ class NewPostForm extends Component {
   }
 
   cancel() {
-    this.props.history.push("/");
+    this.props.cancel();
+    this.props.history.push(`/posts/${this.props.post.id}`);
   }
 
   handleSubmit(evt) {
@@ -35,7 +36,7 @@ class NewPostForm extends Component {
       let { title, description, body } = this.state;
       let updatedPost = { title, description, body };
       const id = this.props.post.id;
-      this.props.editPost(id, updatedPost);
+      this.props.editPost({id, title, description, body});
     } else {
       this.props.addPostToAPI({ ...this.state });
       this.setState({
@@ -43,14 +44,11 @@ class NewPostForm extends Component {
         description: "",
         body: ""
       });
+      this.props.history.push("/");
     }
-    this.props.history.push("/");
   }
 
 
-  handleBold = () => {
-    
-  }
 
   render() {
     const button = this.props.edit ? (
