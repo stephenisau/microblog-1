@@ -10,15 +10,12 @@ class Home extends Component {
   }
 
   render() {
-    if (this.props.posts) {
-      return (
-        <div className="container">
-          {this.props.posts.map(post => <PostCard key={post.id} post={post}/>)}
-        </div>
-      )
-    } else {
-      return (<div>Loading...</div>)
-    }
+    if (!this.props.posts) return <React.Fragment>Loading...</React.Fragment>
+    return (
+      <div className="container">
+        {this.props.posts.map(post => <PostCard key={post.id} post={post} />)}
+      </div>
+    )
   }
 }
 
