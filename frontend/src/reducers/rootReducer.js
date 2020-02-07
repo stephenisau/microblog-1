@@ -10,16 +10,15 @@ import {
 
 
 export default function rootReducer(state = {}, action) {
+  let copy = {...state};
   let currPost;
   let newPost;
-  let copy;
   let posts;
   let idx;
 
   switch (action.type) {
 
     case LOAD_POSTS:
-      copy = { ...state }
       return { ...copy, posts: [...action.posts] };
 
     case ONE_POST:
@@ -28,7 +27,6 @@ export default function rootReducer(state = {}, action) {
       };
 
     case EDIT_POST:
-      newPost = { ...action.post }
       return {
         ...state,
         [action.post.id]: { ...action.post, comments: state[action.post.id].comments }
@@ -47,7 +45,7 @@ export default function rootReducer(state = {}, action) {
       return posts;
 
     case ADD_COMMENT:
-      currPost = state[action.postId];
+      currPost = copy[action.postId];
       return {
         ...state,
         [action.postId]: { ...currPost, comments: [...currPost.comments, action.comment] }

@@ -73,7 +73,7 @@ class PostDetail extends Component {
             <button className="delete-button" onClick={this.deletePost}>
               <i className="far fa-trash-alt"></i>
             </button>
-          </div>)
+          </div>
           <hr />
           <CommentList comments={post.comments} postId={post.id} removeComment={this.removeComment} />
           <CommentForm postId={post.id} addComment={this.addComment} />
