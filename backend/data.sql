@@ -14,6 +14,15 @@ CREATE TABLE comments (id SERIAL PRIMARY KEY,
                        text TEXT NOT NULL, 
                        post_id INT NOT NULL REFERENCES posts ON DELETE CASCADE);
 
+CREATE TABLE users (id SERIAL PRIMARY KEY,
+                        username text NOT NULL,
+                        password text NOT NULL,
+                        first_name text,
+                        last_name text,
+                        email text,
+                        photo_url text,
+                        is_admin boolean DEAFULT false NOT NULL);
+
 INSERT INTO posts (title, description, body) VALUES
     ('First Post', 'Best post ever!', 'Everyone loves posting first. I win!'),
     ('Second Post', 'A very good post!', 'Oh well. Didn''t get to be first.');
@@ -21,3 +30,4 @@ INSERT INTO posts (title, description, body) VALUES
 INSERT INTO comments (text, post_id) VALUES
     ('This is a really great post.', 1),
     ('I learned so much reading this.', 1);
+
