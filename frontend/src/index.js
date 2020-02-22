@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 // import "@fortawesome/fontawesome-free/css/all.css";
 
 const store = createStore(

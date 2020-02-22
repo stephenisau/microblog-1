@@ -21,9 +21,9 @@ class App extends Component {
   render() {
     return (
       <div className="App container">
-      
-        <Navigation />
+
         <BrowserRouter>
+        <Navigation />
           <Routes />
         </BrowserRouter>
 

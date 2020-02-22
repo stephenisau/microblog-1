@@ -8,3 +8,5 @@ export const VOTE = "VOTE";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const REMOVE_COMMENT = "REMOVE_COMMENT";
 export const LOAD_USER = "LOAD_USER";
+export const OPEN_MODAL = "OPEN_MODAL";
+export const CLOSE_MODAL = "CLOSE_MODAL";
