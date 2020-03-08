@@ -10,9 +10,7 @@ const Navigation = () => {
       <Navbar bg="light" expand="lg" fixed="top">
         <Navbar.Brand >Brand</Navbar.Brand>
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/new">Add a new post</NavLink>
         <NavLink to="/login">Login</NavLink>
-        <NavLink to="/logout">Logout</NavLink>
       </Navbar>
     </header>
   )
