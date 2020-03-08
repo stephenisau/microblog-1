@@ -8,9 +8,11 @@ const Navigation = () => {
       <h1 className="App-title display-4">Microblog</h1>
       <p className="lead">Get in the Rithm of blogging!</p>
       <Navbar bg="light" expand="lg" fixed="top">
-        <NavLink exact to="/">Home</NavLink>
-        <NavLink exact to="/new">Add a new post</NavLink>
-        <NavLink exact to="/login">Login</NavLink>
+        <Navbar.Brand >Brand</Navbar.Brand>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/new">Add a new post</NavLink>
+        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/logout">Logout</NavLink>
       </Navbar>
     </header>
   )

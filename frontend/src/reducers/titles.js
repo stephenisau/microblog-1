@@ -17,6 +17,7 @@ export default function rootReducer(state = [], action) {
   switch (action.type) {
 
     case FETCH_TITLES:
+      debugger;
       return sortByVote([...action.titles]);
 
     case ADD_POST:

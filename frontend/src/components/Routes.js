@@ -18,8 +18,8 @@ class Routes extends Component {
             render={() => <Home />} />
           <Route exact path="/:postId"
             render={(props) => <Post {...props} />} />
-          <Route exact path="/login"
-            render={(props) => <Login {...props} />} />
+          <Route exact path="/login" 
+            render={(props) => <LoginContainer {...props}/>} />
         </Switch>
       </React.Fragment>
     );

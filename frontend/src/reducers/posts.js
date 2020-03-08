@@ -22,7 +22,6 @@ export default function rootReducer(state = {}, action) {
       return { ...state, [action.post.id]: { ...action.post, comments: [] }};
 
     case UPDATE_POST:
-      debugger;
       return {
         ...state,
         [action.post.id]: {

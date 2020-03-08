@@ -12,6 +12,8 @@ import { BrowserRouter } from "react-router-dom";
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import "bootstrap/dist/css/bootstrap.min.css";
+// import "@material-ui/core"
+// import "@material-ui/icons";
 // import "@fortawesome/fontawesome-free/css/all.css";
 
 const store = createStore(

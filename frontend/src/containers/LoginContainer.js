@@ -6,11 +6,11 @@ import Login from "../components/Login";
  */
 
  const mapStateToProps = (state, prevProps) => {
-   debugger;
    return {
      user: state.user
    }
  }
+
 
  export default connect(
    mapStateToProps,
