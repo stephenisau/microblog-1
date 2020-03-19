@@ -12,3 +12,6 @@ export const ADD_USER = "ADD_USER";
 export const OPEN_MODAL = "OPEN_MODAL";
 export const CLOSE_MODAL = "CLOSE_MODAL";
 export const LOADED = "LOADED";
+export const LOGIN = "LOGIN";
+export const REGISTER_USER = "REGISTER_USER";
+export const LOGOUT = "LOGOUT";

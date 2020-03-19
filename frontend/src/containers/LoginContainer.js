@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 // import { openModal, closeModal } from '../actions/modal';
-// import { getUserFromAPI, loginUser, registerUser } from '../actions/user';
+import { getUserFromAPI, login, register } from '../actions/user';
 import Login from "../components/Login";
 
 /**
@@ -16,14 +16,13 @@ const mapStateToProps = (state, prevProps) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    // login: () => dispatch(loginUser(props.user)),
-    // register: ({ userInfo }) => dispatch(registerUser(props.user)),
-    // fetchUser: () => dispatch(getUserFromAPI(props.user))
+    login: () => dispatch(login(props.user)),
+    register: () => dispatch(register(props.user)),
   }
 }
 
 
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(Login);

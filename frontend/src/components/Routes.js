@@ -14,12 +14,12 @@ class Routes extends Component {
         <Switch>
           <Route exact path="/new"
             render={(props) => <NewPost {...props} />} />
+          <Route exact path="/login" 
+            render={(props) => <LoginContainer {...props}/>} />
           <Route exact path="/"
             render={() => <Home />} />
           <Route exact path="/:postId"
             render={(props) => <Post {...props} />} />
-          <Route exact path="/login" 
-            render={(props) => <LoginContainer {...props}/>} />
         </Switch>
       </React.Fragment>
     );
