@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useReducer, useEffect } from "react";
 import "./TitleList.css";
 import { connect } from 'react-redux';
 import { fetchTitlesFromAPI } from '../actions/titles';
 import { Link } from 'react-router-dom';
 import { sendVoteToAPI } from "../actions/posts";
 import { Spinner } from 'react-bootstrap';
+import * as titleReducer from '../reducers/titles';
 
 /** Show list of blog titles, ordered by popularity. */
 
@@ -20,6 +21,7 @@ class TitleList extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     if (this.props.titles.length === 0) return <Spinner animation="border" />
 
     return (

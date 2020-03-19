@@ -20,9 +20,7 @@ export const getPostFromAPI = (id) => async dispatch => {
 const getPost = (post) => {
   return {
     type: FETCH_POST,
-    payload: {
-      post: post
-    },
+    payload: { post },
   };
 };
 
@@ -42,8 +40,8 @@ const getPost = (post) => {
 
 export const sendPostToAPI = (title, description, body) => async dispatch => {
   const response = await axios.post(`${API_URL}`, {
-    title, 
-    description, 
+    title,
+    description,
     body
   });
   return dispatch(addPost(response.data));
@@ -52,7 +50,7 @@ export const sendPostToAPI = (title, description, body) => async dispatch => {
 const addPost = (post) => {
   return {
     type: ADD_POST,
-    payload: post
+    payload: { post }
   };
 };
 
@@ -84,13 +82,12 @@ export function removePostFromAPI(id) {
 function removePost(postId) {
   return {
     type: REMOVE_POST,
-    postId
+    payload: { postId }
   };
 }
 
 export function updatePostInAPI(id, title, description, body) {
   return async function (dispatch) {
-    debugger;
     const response = await axios.put(`${API_URL}/${id}`, {
       title,
       description,
@@ -104,7 +101,7 @@ export function updatePostInAPI(id, title, description, body) {
 function updatePost(post) {
   return {
     type: UPDATE_POST,
-    post,
+    payload: { post },
   };
 }
 
@@ -118,8 +115,10 @@ export function sendVoteToAPI(id, direction) {
 function vote(postId, votes) {
   return {
     type: VOTE,
-    postId: postId,
-    votes: votes,
+    payload: {
+      postId: postId,
+      votes: votes,
+    }
   };
 }
 
@@ -133,8 +132,10 @@ export function removeCommentFromAPI(postId, commentId) {
 function removeComment(postId, commentId) {
   return {
     type: REMOVE_COMMENT,
-    postId,
-    commentId,
+    payload: {
+      postId,
+      commentId,
+    }
   };
 }
 
@@ -146,5 +147,5 @@ export function sendCommentToAPI(postId, text) {
 }
 
 function addComment(postId, comment) {
-  return { type: ADD_COMMENT, postId, comment };
+  return { type: ADD_COMMENT, payload: { postId, comment } };
 }

@@ -17,14 +17,13 @@ export default function rootReducer(state = [], action) {
   switch (action.type) {
 
     case FETCH_TITLES:
-      debugger;
-      return sortByVote([...action.titles]);
+      return sortByVote([...action.payload.titles]);
 
     case ADD_POST:
       return sortByVote([...state, makeTitleFromPost(action.post)]);
 
     case REMOVE_POST:
-      return state.filter(title => title.id !== action.postId);
+      return state.filter(title => title.id !== action.payload.postId);
 
     case UPDATE_POST:
       return state.map(title => title.id === action.post.id

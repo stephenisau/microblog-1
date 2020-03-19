@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import NewPost from "../containers/NewPost";
-import { Route, NavLink, Switch, BrowserRouter } from "react-router-dom";
-import Post from "../containers/Post";
+import { BrowserRouter } from "react-router-dom";
 import './App.css';
 import Navigation from './Navigation';
 
@@ -22,7 +20,7 @@ class App extends Component {
     return (
       <div className="App container">
 
-        <BrowserRouter>
+      <BrowserRouter>
         <Navigation />
           <Routes />
         </BrowserRouter>
