@@ -1,78 +1,32 @@
 import React, { useState } from 'react';
-import useSetState from '../util/hooks/useSetState';
-import { useSelector, useDispatch } from "react-redux";
-
-const initialState = {
-  username: '',
-  email: '',
-  password: '',
-  passwordConfirmation: ''
-};
+// import { useSelector, useDispatch } from "react-redux";
+import LoginForm from './Forms/Login/LoginForm';
+import RegisterForm from './Forms/Register/RegisterForm';
+import { Link } from 'react-router-dom';
+import "./Login.css";
 
 const Login = (props) => {
 
-  const [state, setState] = useSetState(initialState);
+  const [login, toggleLogin] = useState(true);
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    clear();
+  const toggleLoginOn = () => {
+    toggleLogin(true);
+  };
+
+  const toggleRegisterOn = () => {
+    toggleLogin(false)
   }
 
-  const handleChange = (evt) => {
-    setState({
-      [evt.target.name]: evt.target.value
-    });
-  };
-
-  const clear = () => {
-    setState(initialState);
-  };
 
   return (
     <>
-      <form>
-        <label>
-          Username: <input
-            id="username"
-            name="username"
-            type="text"
-            onChange={handleChange}
-            required={true}
-            value={state.username}
-          />
-        </label>
-        <label>
-          Email: <input
-            id="email"
-            name="email"
-            type="text"
-            onChange={handleChange}
-            required={true}
-            value={state.email}
-          />
-        </label>
-        <label>
-          Password: <input
-            id="password"
-            name="password"
-            type="text"
-            onChange={handleChange}
-            required={true}
-            value={state.password}
-          />
-        </label>
-        <label>
-          Password confirmation: <input
-            id="passwordConfirmation"
-            name="passwordConfirmation"
-            type="text"
-            onChange={handleChange}
-            required={true}
-            value={state.passwordConfirmation}
-          />
-        </label>
-        <button onClick={handleSubmit}/>
-      </form>
+      <div className="login-box">
+        <div className="login-header">
+          <Link onClick={toggleLoginOn} id={`login-box-link`} className={login ? "active" : null}>Login</Link>
+          <Link onClick={toggleRegisterOn} id="register-box-link" className={login ? null : "active"}>Register</Link>
+        </div>
+        {login ? <LoginForm /> : <RegisterForm />}
+      </div>
     </>
     // <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     //   <div class="modal-dialog" role="document">

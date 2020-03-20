@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from "react";
+import React from "react";
 import "./TitleList.css";
 import { connect } from 'react-redux';
 import { fetchTitlesFromAPI } from '../actions/titles';

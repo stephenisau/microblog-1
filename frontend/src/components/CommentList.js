@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Comment from "./Comment"
 import { Spinner } from 'react-bootstrap';
 
