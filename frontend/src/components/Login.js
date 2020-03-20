@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import LoginForm from './Forms/Login/LoginForm';
 import RegisterForm from './Forms/Register/RegisterForm';
 import { Link } from 'react-router-dom';
@@ -8,7 +8,9 @@ import "./Login.css";
 const Login = (props) => {
 
   const [login, toggleLogin] = useState(true);
+  const dispatch = useDispatch();
 
+  console.log("props in login: ", props);
   const toggleLoginOn = () => {
     toggleLogin(true);
   };
@@ -18,45 +20,32 @@ const Login = (props) => {
   }
 
 
+  const { registerUser, loginUser } = props;
+
+  const loginWithUserCredentials = ({ username, password }) => {
+    let userCredentials = { username, password };
+    dispatch(loginUser({ username, password }));
+  };
+
+  const registerUserCredentials = ({ username, email, password, passwordConfirmation }) => {
+    if (password !== passwordConfirmation) {
+      // do some client-side validation.
+    }
+    let registration = { username, email, password, passwordConfirmation };
+    dispatch(registerUser(registration));
+  }
+
+
   return (
     <>
       <div className="login-box">
         <div className="login-header">
-          <Link onClick={toggleLoginOn} id={`login-box-link`} className={login ? "active" : null}>Login</Link>
-          <Link onClick={toggleRegisterOn} id="register-box-link" className={login ? null : "active"}>Register</Link>
+          <Link to="/login" onClick={toggleLoginOn} id={`login-box-link`} className={login ? "active" : null}>Login</Link>
+          <Link to="/register" onClick={toggleRegisterOn} id="register-box-link" className={login ? null : "active"}>Register</Link>
         </div>
-        {login ? <LoginForm /> : <RegisterForm />}
+        {login ? <LoginForm login={loginWithUserCredentials} /> : <RegisterForm register={registerUserCredentials} />}
       </div>
     </>
-    // <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    //   <div class="modal-dialog" role="document">
-    //     <div class="modal-content">
-    //       <div class="modal-header text-center">
-    //         <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
-    //         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    //           <span aria-hidden="true"></span>
-    //         </button>
-    //       </div>
-    //       <div class="modal-body mx-3">
-    //         <div class="md-form mb-5">
-    //           <i class="fas fa-envelope prefix grey-text"></i>
-    //           <input type="email" id="defaultForm-email" class="form-control validate" />
-    //           <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
-    //         </div>
-
-    //         <div class="md-form mb-4">
-    //           <i class="fas fa-lock prefix grey-text"></i>
-    //           <input type="password" id="defaultForm-pass" class="form-control validate" />
-    //           <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
-    //         </div>
-
-    //       </div>
-    //       <div class="modal-footer d-flex justify-content-center">
-    //         <button class="btn btn-default">Login</button>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   )
 
 }

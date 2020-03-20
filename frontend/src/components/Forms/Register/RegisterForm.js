@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
+import { register } from '../../../actions/user';
 
 const initialState = {
   username: '',
@@ -12,11 +13,13 @@ const RegisterForm = (props) => {
 
   const [formData, setFormData] = useState(initialState);
 
-  const dispatch = useDispatch();
+  console.log("props in register form: ", props);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    dispatch()
+    const { username, email, password, passwordConfirmation } = formData;
+    if (password !== passwordConfirmation) // perform password validation here
+    register({ username, email, password, passwordConfirmation });
     clear();
   }
 

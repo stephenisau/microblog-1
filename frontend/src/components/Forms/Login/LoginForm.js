@@ -8,14 +8,15 @@ const initialState = {
   password: '',
 }
 
-const LoginForm = (props) => {
+const LoginForm = ({ login }) => {
 
   const [formData, setFormData] = useState(initialState);
 
-  const dispatch = useDispatch();
+  console.log("props in loginform: ", LoginForm);
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    dispatch()
+    const { username, password } = formData;
+    login({ username, password });
     clear();
   }
 

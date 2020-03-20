@@ -5,7 +5,6 @@ import Home from './Home';
 import Post from '../containers/Post';
 import NewPost from '../containers/NewPost';
 import LoginContainer from '../containers/LoginContainer';
-import Login from "./Login";
 
 class Routes extends Component {
   render() {
@@ -16,6 +15,8 @@ class Routes extends Component {
             render={(props) => <NewPost {...props} />} />
           <Route exact path="/login" 
             render={(props) => <LoginContainer {...props}/>} />
+          <Route exact path="/register"
+            render={(props) => <LoginContainer {...props} />} />
           <Route exact path="/"
             render={() => <Home />} />
           <Route exact path="/:postId"

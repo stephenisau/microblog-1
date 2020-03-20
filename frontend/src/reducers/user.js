@@ -1,4 +1,4 @@
-import { LOAD_USER, ADD_USER, LOADED } from '../actions/types';
+import { LOAD_USER, ADD_USER, LOADED, REGISTER_USER, LOGIN, LOGOUT } from '../actions/types';
 
 const INITIAL_STATE = {
   currUser: null,
@@ -21,9 +21,11 @@ export default function rootReducer(state = INITIAL_STATE, action) {
         errors: [...action.payload.errors]
       }
 
+    case LOGIN:
+      debugger;
 
     case ADD_USER:
-    // add user to backend
+      // add user to backend
     default:
       return state;
   }
