@@ -16,7 +16,7 @@ app.use(cors());
 
 app.use("/api/posts/:post_id/comments", postCommentsRoutes);
 app.use("/api/posts", postsRoutes);
-
+// app.use("/api", userRoutes);
 
 /** 404 Not Found handler. */
 

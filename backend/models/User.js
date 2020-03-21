@@ -39,10 +39,10 @@ class User {
         RETURNING username, password, first_name, last_name, email, photo_url`,
       [
         data.username,
+        data.email,
         hashedPassword,
         data.first_name,
         data.last_name,
-        data.email,
         data.photo_url
       ]);
 
