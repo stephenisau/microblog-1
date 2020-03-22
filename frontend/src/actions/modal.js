@@ -13,3 +13,10 @@ export const closeModal = () => {
     type: CLOSE_MODAL
   }
 }
+
+
+export const toggleLogin = () => {
+  return {
+    // type: TOGGLE_LOGIN
+  }
+}

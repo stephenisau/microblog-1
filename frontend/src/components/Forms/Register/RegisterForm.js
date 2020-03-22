@@ -20,7 +20,7 @@ const RegisterForm = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const { username, email, password, firstName, lastName, image } = formData;
+    const { username, email, password, passwordConfirmation, firstName, lastName, image } = formData;
     if (password !== passwordConfirmation) {
       // perform password validation here
     }
