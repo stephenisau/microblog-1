@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import LoginForm from './Forms/Login/LoginForm';
-import RegisterForm from './Forms/Register/RegisterForm';
+import LoginForm from '../Forms/LoginForm';
+import RegisterForm from '../Forms/RegisterForm';
 import { Link } from 'react-router-dom';
 import "./Login.css";
 

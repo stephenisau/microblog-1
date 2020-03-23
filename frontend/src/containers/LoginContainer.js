@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 // import { openModal, closeModal } from '../actions/modal';
 import { login, register } from '../actions/user';
-import Login from "../components/Login";
+import Login from '../components/Login/';
 
 /**
  * Connects user login to login component

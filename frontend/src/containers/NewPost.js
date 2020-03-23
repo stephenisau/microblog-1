@@ -2,7 +2,7 @@ import React from "react";
 import "./NewPost.css";
 import { connect } from "react-redux";
 import { sendPostToAPI } from "../actions/posts";
-import PostForm from "../components/PostForm";
+import PostForm from "../components/Forms/PostForm/";
 
 /** Show post form, and handle editing of it. */
 

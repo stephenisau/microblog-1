@@ -9,10 +9,10 @@ import {
   removeCommentFromAPI,
   removePostFromAPI
 } from "../actions/posts";
-import PostForm from "../components/PostForm";
-import CommentList from "../components/CommentList";
-import PostDisplay from "../components/PostDisplay";
-import CommentForm from "../components/CommentForm";
+import PostForm from "../components/Forms/PostForm/";
+import CommentList from "../components/CommentList/CommentList";
+import PostDisplay from "../components/PostDisplay/";
+import CommentForm from "../components/Forms/CommentForm";
 
 /** Post:
  *
