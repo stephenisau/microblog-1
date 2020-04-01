@@ -17,12 +17,13 @@ class Comment extends PureComponent {
   }
   render() {
     return (
-      <div>
+      <div className="comment" >
         <p>
           {(
             <i
               className="fa fa-times text-danger mr-2"
               onClick={this.handleDelete}
+              data-testid="comment"
             />
           )}
 
