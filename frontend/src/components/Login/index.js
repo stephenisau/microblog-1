@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import LoginForm from '../Forms/LoginForm';
 import RegisterForm from '../Forms/RegisterForm';
 import { Link } from 'react-router-dom';
@@ -23,7 +23,6 @@ const Login = (props) => {
   const { registerUser, loginUser } = props;
 
   const loginWithUserCredentials = ({ username, password }) => {
-    let userCredentials = { username, password };
     dispatch(loginUser({ username, password }));
   };
 

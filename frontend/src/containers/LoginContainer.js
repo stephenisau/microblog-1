@@ -7,12 +7,12 @@ import Login from '../components/Login/';
  * Connects user login to login component
  */
 
-const mapStateToProps = (state, prevProps) => {
-  const { user } = state.user;
-  return {
-    user
-  }
-}
+// const mapStateToProps = (state, prevProps) => {
+  // const { user } = state.user;
+  // return {
+    // user
+  // }
+// }
 
 const mapDispatchToProps = (dispatch, props) => {
   return {

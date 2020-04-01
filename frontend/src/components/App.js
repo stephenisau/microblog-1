@@ -19,12 +19,10 @@ class App extends Component {
   render() {
     return (
       <div className="App container">
-
-      <BrowserRouter>
-        <Navigation />
+        <BrowserRouter>
+          <Navigation />
           <Routes />
         </BrowserRouter>
-
       </div>
     );
   }

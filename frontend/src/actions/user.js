@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOGIN, LOGOUT, REGISTER_USER, LOADED } from "./types";
+import { LOGIN, REGISTER_USER, LOADED } from "./types";
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api/posts";
 
 

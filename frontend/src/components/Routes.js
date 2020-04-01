@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PrivateRoute from './PrivateRoute';
+// import PrivateRoute from './PrivateRoute';
 import { Switch, Route } from "react-router-dom";
 import Home from './Home/';
 import Post from '../containers/Post';

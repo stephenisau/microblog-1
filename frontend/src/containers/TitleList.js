@@ -5,7 +5,6 @@ import { fetchTitlesFromAPI } from '../actions/titles';
 import { Link } from 'react-router-dom';
 import { sendVoteToAPI } from "../actions/posts";
 import { Spinner } from 'react-bootstrap';
-import * as titleReducer from '../reducers/titles';
 
 /** Show list of blog titles, ordered by popularity. */
 
