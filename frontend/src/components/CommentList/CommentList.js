@@ -12,6 +12,7 @@ import { Spinner } from 'react-bootstrap';
 
 const CommentList = ({ comments, deleteComment }) => {
   if (!comments) return <Spinner animation="border" />
+  console.log(comments)
   return (
     comments.map(c => (
       <Comment key={c.id} id={c.id} text={c.text} triggerDelete={deleteComment} />

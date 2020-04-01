@@ -16,7 +16,6 @@ export default function rootReducer(state = {}, action) {
   switch (action.type) {
 
     case FETCH_POST:
-      debugger;
       return { ...state, [action.payload.post.id]: action.payload.post };
 
     case ADD_POST:
