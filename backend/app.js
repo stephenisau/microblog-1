@@ -8,6 +8,9 @@ const postCommentsRoutes = require("./routes/postComments");
 const cors = require("cors");
 
 const app = express();
+//express server
+
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(morgan("tiny"));
 app.use(bodyParser.json());
