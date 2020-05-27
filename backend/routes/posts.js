@@ -3,6 +3,7 @@
 const db = require("../db");
 const express = require("express");
 const router = new express.Router();
+const Post = require("../models/Post");
 
 /** GET /   get overview of posts
  *
@@ -20,15 +21,7 @@ const router = new express.Router();
 
 router.get("/", async function (req, res, next) {
   try {
-    const result = await db.query(
-      `SELECT p.id,
-              p.title,
-              p.description,
-              p.votes
-      FROM posts p 
-      ORDER BY p.id
-      `
-    );
+    const result = await Post.getPosts();
     return res.json(result.rows);
   } catch (err) {
     return next(err);
@@ -50,23 +43,8 @@ router.get("/", async function (req, res, next) {
 
 router.get("/:id", async function (req, res, next) {
   try {
-    const result = await db.query(
-      `SELECT p.id,
-              p.title,
-              p.description,
-              p.body,
-              p.votes,
-              CASE WHEN COUNT(c.id) = 0 THEN JSON '[]' ELSE JSON_AGG(
-                    JSON_BUILD_OBJECT('id', c.id, 'text', c.text)
-                ) END AS comments
-      FROM posts p 
-        LEFT JOIN comments c ON c.post_id = p.id
-      WHERE p.id = $1
-      
-      GROUP BY p.id    
-      ORDER BY p.id
-      `, [req.params.id]
-    );
+    const id = req.params.id;
+    const result = await Post.getPost(id);
     return res.json(result.rows[0]);
   } catch (err) {
     return next(err);
@@ -101,7 +79,7 @@ router.post("/:id/vote/:direction", async function (req, res, next) {
 
 router.post("/", async function (req, res, next) {
   try {
-    const {title, body, description} = req.body;
+    const { title, body, description } = req.body;
     const result = await db.query(
       `INSERT INTO posts (title, description, body) 
         VALUES ($1, $2, $3) 
@@ -122,7 +100,7 @@ router.post("/", async function (req, res, next) {
 
 router.put("/:id", async function (req, res, next) {
   try {
-    const {title, body, description} = req.body;
+    const { title, body, description } = req.body;
     const result = await db.query(
       `UPDATE posts SET title=$1, description=$2, body=$3
         WHERE id = $4 

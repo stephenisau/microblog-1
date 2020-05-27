@@ -8,18 +8,15 @@ const postCommentsRoutes = require("./routes/postComments");
 const cors = require("cors");
 
 const app = express();
-//express server
-
-app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(morgan("tiny"));
 app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use("/api/posts/:post_id/comments", postCommentsRoutes);
 app.use("/api/posts", postsRoutes);
-// app.use("/api", userRoutes);
+
 
 /** 404 Not Found handler. */
 
