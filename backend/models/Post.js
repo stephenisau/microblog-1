@@ -43,10 +43,64 @@ class Post {
         ORDER BY p.id `, [data.id]
       )
       return post;
-    } catch(err) {
+    } catch (err) {
       throw err;
     }
   }
+
+
+  static async vote(id, delta) {
+    try {
+      const updatedPost = await db.query(
+        `UPDATE posts SET votes=votes + $1 WHERE id = $2 RETURNING votes`,
+        [delta, id]
+      );
+      return updatedPost
+    } catch (err) {
+      return next(err);
+    };
+  }
+
+
+  static async addPost(data) {
+    try {
+      const post = await db.query(
+        `INSERT INTO posts (title, description, body) 
+          VALUES ($1, $2, $3) 
+          RETURNING id, title, description, body, votes`,
+        [data.title, data.description, data.body]);
+      if (post) return post;
+    } catch (err) {
+      return next(err);
+    };
+  }
+
+  static async editPost(data) {
+    try {
+      const editedPost = await db.query(
+        `UPDATE posts SET title=$1, description=$2, body=$3
+          WHERE id=$4
+          RETURNING id, title, description, body, votes
+        `,
+        [data.title, data.description, data.body, data.id]
+      );
+      return editedPost;
+    } catch (err) {
+      return next(err);
+    };
+  }
+
+  static async deletePost(id) {
+    try {
+      await db.query(`DELETE FROM posts WHERE id=$1`, [id]);
+      return { message: `Deleted post ${id}` };
+    } catch (err) {
+      return next(err);
+    };
+  }
+
+
+
 }
 
 

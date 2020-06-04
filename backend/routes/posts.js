@@ -61,9 +61,8 @@ router.get("/:id", async function (req, res, next) {
 router.post("/:id/vote/:direction", async function (req, res, next) {
   try {
     let delta = req.params.direction === "up" ? +1 : -1;
-    const result = await db.query(
-      "UPDATE posts SET votes=votes + $1 WHERE id = $2 RETURNING votes",
-      [delta, req.params.id]);
+    const id = req.params.id;
+    const result = await Post.vote(id, delta);
     return res.json(result.rows[0]);
   } catch (err) {
     return next(err);
@@ -80,11 +79,7 @@ router.post("/:id/vote/:direction", async function (req, res, next) {
 router.post("/", async function (req, res, next) {
   try {
     const { title, body, description } = req.body;
-    const result = await db.query(
-      `INSERT INTO posts (title, description, body) 
-        VALUES ($1, $2, $3) 
-        RETURNING id, title, description, body, votes`,
-      [title, description, body]);
+    const result = await Post.addPost(req.body);
     return res.status(201).json(result.rows[0]);
   } catch (err) {
     return next(err);
@@ -101,11 +96,8 @@ router.post("/", async function (req, res, next) {
 router.put("/:id", async function (req, res, next) {
   try {
     const { title, body, description } = req.body;
-    const result = await db.query(
-      `UPDATE posts SET title=$1, description=$2, body=$3
-        WHERE id = $4 
-        RETURNING id, title, description, body, votes`,
-      [title, description, body, req.params.id]);
+    const data = {title, body, description, id: req.params.id};
+    const result = await Post.editPost(data);
     return res.json(result.rows[0]);
   } catch (e) {
     return next(e);
@@ -121,8 +113,8 @@ router.put("/:id", async function (req, res, next) {
 
 router.delete("/:id", async (req, res, next) => {
   try {
-    await db.query("DELETE FROM posts WHERE id = $1", [req.params.id]);
-    return res.json({ message: "deleted" });
+    const result = await Post.deletePost(req.params.id);
+    return res.json(result);
   } catch (err) {
     return next(err);
   }
